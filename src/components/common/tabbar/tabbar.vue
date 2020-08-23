@@ -9,42 +9,54 @@
 
 <script>
 	export default {
+		props:{
+			selectedIndex: {
+				selectedIndex: Number
+			}
+		},
 		data: function() {
 			return {
 				tabBarList: [
 					{
 						text: "首页",
-						icon: require("@/assets/logo.png"),
-						selectedIcon: require("@/assets/img/icon-car.jpg")
+						icon: require("@/assets/img/home_icon.png"),
+						selectedIcon: require("@/assets/img/home_icon_on.png"),
+						targetPage: "home"
 					},
 					{
 						text: "产品展示",
-						icon: require("@/assets/logo.png"),
-						selectedIcon: require("@/assets/img/icon-car.jpg")
+						icon: require("@/assets/img/product_icon.png"),
+						selectedIcon: require("@/assets/img/product_icon_on.png"),
+						targetPage: "product"
 					},
 					{
 						text: "案例",
-						icon: require("@/assets/logo.png"),
-						selectedIcon: require("@/assets/img/icon-car.jpg")
+						icon: require("@/assets/img/case_icon.png"),
+						selectedIcon: require("@/assets/img/case_icon_on.png"),
+						targetPage: "case"
 					},
 					{
 						text: "客服",
-						icon: require("@/assets/logo.png"),
-						selectedIcon: require("@/assets/img/icon-car.jpg")
+						icon: require("@/assets/img/service_icon.png"),
+						selectedIcon: require("@/assets/img/service_icon_on.png"),
+						targetPage: "service"
 					},
 					{
 						text: "我的",
-						icon: require("@/assets/logo.png"),
-						selectedIcon: require("@/assets/img/icon-car.jpg")
+						icon: require("@/assets/img/user_icon.png"),
+						selectedIcon: require("@/assets/img/user_icon_on.png"),
+						targetPage: "my"
 					},
-				],
-				selectedIndex: 0
+				]
 			}
 		},
 		methods: {
 			onTabbarItemSelected: function(tabBarItem, index){
-				this.selectedIndex = index
-				this.$emit("onTabbarItemSelected", tabBarItem, index);
+				if(this.selectedIndex == index){
+					return
+				}
+				this.$router.push({path: "/" + tabBarItem.targetPage})
+				this.$emit("onTabbarItemSelected", tabBarItem)
 			}
 		}
 	}

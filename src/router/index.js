@@ -10,6 +10,36 @@ const index = (resolve) => {
 	});
 };
 
+const product = (resolve) => {
+	import('@/components/product').then((module) => {
+		resolve(module);
+	});
+};
+
+const casePage = (resolve) => {
+	import('@/components/case').then((module) => {
+		resolve(module);
+	});
+};
+
+const service = (resolve) => {
+	import('@/components/service').then((module) => {
+		resolve(module);
+	});
+};
+
+const my = (resolve) => {
+	import('@/components/my').then((module) => {
+		resolve(module);
+	});
+};
+
+const gallery = (resolve) => {
+	import('@/components/common/gallery/gallery').then((module) => {
+		resolve(module);
+	});
+};
+
 const routes = [{
 	path: '/',
 	name: '首页',
@@ -17,10 +47,52 @@ const routes = [{
 	meta:{
 		transitionIndex: 0
 	}
+}, {
+	path: '/home',
+	name: '首页',
+	component: index,
+	meta:{
+		transitionIndex: 0
+	}
+}, {
+	path: '/product',
+	name: '产品展示',
+	component: product,
+	meta:{
+		transitionIndex: 0
+	}
+}, {
+	path: '/case',
+	name: '案例',
+	component: casePage,
+	meta:{
+		transitionIndex: 0
+	}
+}, {
+	path: '/service',
+	name: '客服',
+	component: service,
+	meta:{
+		transitionIndex: 0
+	}
+}, {
+	path: '/my',
+	name: '客服',
+	component: my,
+	meta:{
+		transitionIndex: 0
+	}
+}, {
+	path: '/gallery',
+	name: '图片预览',
+	component: gallery,
+	meta:{
+		transitionIndex: 0
+	}
 }];
 // 路由配置
 const router = new Router({ // eslint-disable-line
-	mode: 'hash',
+	mode: 'history',
 	routes: routes
 });
 

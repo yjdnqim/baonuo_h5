@@ -1,16 +1,14 @@
 <template>
-	<tabbarPage v-bind:selectedIndex="0" ref="tabbarPage"><homePage /></tabbarPage>
+	<tabbarPage v-bind:selectedIndex="2" ref="tabbarPage"></tabbarPage>
 	
 </template>
 
 <script>
 	import tabbarPage from "./common/tabbar/tabbarPage"
-	import homePage from "./home/home"
 
 	export default {
 		components: {
-			tabbarPage,
-			homePage
+			tabbarPage
 		},
 		created: function() {
 
