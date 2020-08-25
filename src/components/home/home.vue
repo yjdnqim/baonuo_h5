@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Slider v-bind:autoPlay="false" v-bind:interval="5000" height="180px" v-bind:control-btn= "false">
-			<SliderItem @click="onImageClick(item)" v-for="(item, index) in adList" :key="index">
+			<SliderItem @click="onBannerImageClick(item)" v-for="(item, index) in adList" :key="index">
 				<img v-bind:src="item.IMG_URL" />
 			</SliderItem>
 		</Slider>
@@ -42,7 +42,7 @@
 		},
 		mounted: function(){
 			var $this = this
-			this.$get({
+			this.$jsonp({
 				loadingText: "请稍候...",
 				action: "/ad/getAdList",
 				params: null,
@@ -54,7 +54,7 @@
 				}
 			})
 			
-			this.$get({
+			this.$jsonp({
 				loadingText: "请稍候...",
 				action: "/global/getHomeData",
 				params: null,
@@ -67,11 +67,14 @@
 			})
 		},
 		methods: {
-			onImageClick: function(item) {
+			onBannerImageClick: function(item) {
 				location.href = item.LINK
 			},
+			onImageClick: function(item){
+				this.$router.push({path: "/gallery", query:{imgUrl: item} })
+			},
 			onAddressClick: function() {
-				
+				location.href = this.homeData.location.addressLink
 			}
 		}
 	}
