@@ -1,10 +1,10 @@
 <template>
-	<tabbarPage v-bind:selectedIndex="2" ref="tabbarPage"></tabbarPage>
+	<tabbarPage v-bind:selectedIndex="4" ref="tabbarPage"></tabbarPage>
 	
 </template>
 
 <script>
-	import tabbarPage from "./common/tabbar/tabbarPage"
+	import tabbarPage from "@/components/common/tabbar/tabbarPage"
 
 	export default {
 		components: {

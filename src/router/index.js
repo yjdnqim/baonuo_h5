@@ -5,31 +5,31 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 const index = (resolve) => {
-	import('@/components/index').then((module) => {
+	import('@/views/home/home').then((module) => {
 		resolve(module);
 	});
 };
 
 const product = (resolve) => {
-	import('@/components/product').then((module) => {
+	import('@/views/product/product').then((module) => {
 		resolve(module);
 	});
 };
 
 const casePage = (resolve) => {
-	import('@/components/case').then((module) => {
+	import('@/views/case/case').then((module) => {
 		resolve(module);
 	});
 };
 
 const service = (resolve) => {
-	import('@/components/service').then((module) => {
+	import('@/views/service/service').then((module) => {
 		resolve(module);
 	});
 };
 
 const my = (resolve) => {
-	import('@/components/my').then((module) => {
+	import('@/views/my/my').then((module) => {
 		resolve(module);
 	});
 };
@@ -49,7 +49,7 @@ const routes = [{
 	}
 }, {
 	path: '/home',
-	name: '首页',
+	name: '公司品牌',
 	component: index,
 	meta:{
 		transitionIndex: 0
@@ -77,7 +77,7 @@ const routes = [{
 	}
 }, {
 	path: '/my',
-	name: '客服',
+	name: '我的',
 	component: my,
 	meta:{
 		transitionIndex: 0

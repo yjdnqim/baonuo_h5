@@ -1,19 +1,18 @@
 <template>
-	<tabbarPage v-bind:selectedIndex="0" ref="tabbarPage"><homePage /></tabbarPage>
-	
+	<tabbarPage v-bind:selectedIndex="0" ref="tabbarPage"><homePageContent /></tabbarPage>
 </template>
 
 <script>
-	import tabbarPage from "./common/tabbar/tabbarPage"
-	import homePage from "./home/home"
+	import tabbarPage from "@/components/common/tabbar/tabbarPage"
+	import homePageContent from "../home/homePageContent"
 
 	export default {
 		components: {
 			tabbarPage,
-			homePage
+			homePageContent
 		},
 		created: function() {
-
+			
 		},
 		mounted: function() {
 			this.$refs.tabbarPage.finishLoading()
