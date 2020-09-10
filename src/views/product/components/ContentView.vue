@@ -13,7 +13,7 @@
 		<div class="subTitleWrapper" ref="subTitleWrapper">
 			<ul ref="ulContent">
 				<li class="title" :class="{selected:currentSubTitle === index}" v-for="(detailItem,index) in categoriesDetailData" :key="detailItem.id" ref="subTitle" @click="subTitleClick(index)">
-					{{detailItem.name}}
+					{{detailItem.NAME}}
 				</li>
 			</ul>
 		</div>
@@ -34,19 +34,19 @@
 			<div ref="b">
 				<div v-for="(it,index) in categoriesDetailData" :key="index" ref="good">
 					<p class="productCategoryTitle">
-						{{it.name}}
+						{{it.NAME}}
 					</p>
 					<ul>
-						<li v-for="(item,index) in it.products" :key="index" class="list " @click.stop="goToGoodsDetail(item)">
+						<li v-for="(item,index) in it.productList" :key="index" class="list " @click.stop="goToGoodsDetail(item)">
 							<div class="list_item flex">
 								<p>
-									<img v-lazy="item.small_image" alt="">
+									<img v-lazy="item.IMAGE" alt="">
 								</p>
 								<div>
-									<p class="name">{{item.product_name}}</p>
-									<p class="des">{{item.spec}}</p>
-									<p class="price">{{item.price}}</p>
-									<p class="originPrice">{{item.origin_price}}</p>
+									<p class="name">{{item.NAME}}</p>
+									<p class="des">{{item.NAME}}</p>
+									<p class="price">{{item.PRICE}}</p>
+									<p class="originPrice">{{item.DISCOUNT_PRICE}}</p>
 									<div class="iconCartWrapper" @click.stop="addToCart(item)">
 										<SvgIcon iconClass="car" style="width:1.5rem;height:1.5rem"></SvgIcon>
 									</div>
@@ -124,6 +124,9 @@
 			_initTitleScroll() {
 				let contentWrapperWidth = 120;
 				let el = this.$refs.subTitle;
+				if(!el){
+					return
+				}
 				for (let i = 0; i < el.length; i++) {
 					contentWrapperWidth += el[i].clientWidth;
 				}

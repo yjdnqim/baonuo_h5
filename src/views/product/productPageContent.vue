@@ -16,8 +16,8 @@
 			<!--左边-->
 			<div class="leftWrapper">
 				<ul class="wrapper">
-					<li class="categoryItem" v-for="(cate, index) in categoriesData" :class="{ selected: currentIndex === index }" @click="clickLeftLi(index)" :key="cate.id" ref="menuList">
-						<span class="textWrapper">{{ cate.name }}</span>
+					<li class="categoryItem" v-for="(cate, index) in categoriesData" :class="{ selected: currentIndex === index }" @click="clickLeftLi(index, cate.CATEGORY_ID)" :key="cate.CATEGORY_ID" ref="menuList">
+						<span class="textWrapper">{{ cate.NAME }}</span>
 					</li>
 				</ul>
 			</div>
@@ -38,8 +38,6 @@
 	import BScroll from 'better-scroll'
 	// 6.引入骨架屏
 	//import Skeleton from './Skeleton'
-	
-	import Data from '../../utils/Data.js'
 	
 	export default {
 		name: 'Category',
@@ -69,7 +67,7 @@
 			// 页面缓存了数据,所以会走这个方法
 			this.$nextTick(() => {
 				if (this.$route.params.currentIndex > -1) {
-					this.clickLeftLi(this.$route.params.currentIndex + 1)
+					this.clickLeftLi(this.$route.params.currentIndex + 1, "")
 				}
 			})
 		},
@@ -77,15 +75,27 @@
 			// 1. 初始化操作(数据和界面)
 			async _initData() {
 				// 1.1 获取左边的数据
-				let leftRes = Data.leftRes
-				if (leftRes.success) {
-					this.categoriesData = leftRes.data.cate
-				}
+				//let leftRes = Data.leftRes
+				var $this = this
+				this.$jsonp({
+					loadingText: "请稍候...",
+					action: "/category/getCategoryList",
+					params: null,
+					success: function(result) {
+						if(result.code == 0){
+							$this.categoriesData = result.data
+							if($this.categoriesData.length > 0){
+								$this.getRightData($this.categoriesData[0].CATEGORY_ID)
+							}
+						}
+					},
+					error: function(error) {
+						$this.$toast(error.statusText)
+					}
+				})
 				// 1.2 获取右边的数据
-				let rightRes =  Data.c
-				if (rightRes.success) {
-					this.categoriesDetailData = rightRes.data.cate
-				}
+				
+				
 				// 1.3. 隐藏loading框
 				this.isShowLoading = false
 
@@ -105,7 +115,7 @@
 				})
 			},
 			// 2. 处理左边的点击
-			async clickLeftLi(index) {
+			async clickLeftLi(index, CATEGORY_ID) {
 				this.isShowLoadingGif = true
 				// 2.1 改变索引
 				this.currentIndex = index
@@ -117,12 +127,27 @@
 					this.leftScroll.scrollToElement(el, 300)
 				}, 900)
 
-				// 2.4 获取右边的数据
-				let rightRes = Data.c
-				if (rightRes.success) {
-					this.categoriesDetailData = rightRes.data.cate
-				}
-				this.isShowLoadingGif = false
+				this.getRightData(CATEGORY_ID)
+			},
+			
+			getRightData: function(CATEGORY_ID){
+				var $this = this
+				this.$jsonp({
+					loadingText: "请稍候...",
+					action: "/category/getProductListByCategoryId",
+					params: {
+						CATEGORY_ID: CATEGORY_ID
+					},
+					success: function(result) {
+						$this.isShowLoadingGif = false
+						if(result.code == 0){
+							$this.categoriesDetailData = result.data
+						}
+					},
+					error: function(error) {
+						$this.$toast(error.statusText)
+					}
+				})
 			}
 		}
 	}
