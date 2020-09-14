@@ -40,6 +40,12 @@ const gallery = (resolve) => {
 	});
 };
 
+const productDetails = (resolve) => {
+	import('@/views/product/productDetails').then((module) => {
+		resolve(module);
+	});
+};
+
 const routes = [{
 	path: '/',
 	name: '首页',
@@ -86,6 +92,13 @@ const routes = [{
 	path: '/gallery',
 	name: '图片预览',
 	component: gallery,
+	meta:{
+		transitionIndex: 0
+	}
+}, {
+	path: '/productDetails',
+	name: '产品详情',
+	component: productDetails,
 	meta:{
 		transitionIndex: 0
 	}

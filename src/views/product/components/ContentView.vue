@@ -197,17 +197,9 @@
 			// 商品详情页面
 			goToGoodsDetail(goods) {
 				this.$router.push({
-					name: "goodsDetail",
+					path: "/productDetails",
 					// 给商品详情页面传递数据
-					query: {
-						id: goods.id,
-						name: goods.name,
-						small_image: goods.small_image,
-						price: goods.price,
-						spec: goods.spec,
-						total_sales: goods.total_sales,
-						origin_price: goods.origin_price,
-					}
+					query: goods
 				});
 			}
 		}
