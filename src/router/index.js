@@ -51,56 +51,64 @@ const routes = [{
 	name: '首页',
 	component: index,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 0,
+		keepAlive: true
 	}
 }, {
 	path: '/home',
-	name: '公司品牌',
+	name: '首页',
 	component: index,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 0,
+		keepAlive: true
 	}
 }, {
 	path: '/product',
 	name: '产品展示',
 	component: product,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 0,
+		keepAlive: true
 	}
 }, {
 	path: '/case',
 	name: '案例',
 	component: casePage,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 0,
+		keepAlive: true
 	}
 }, {
 	path: '/service',
 	name: '客服',
 	component: service,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 0,
+		keepAlive: true
 	}
 }, {
 	path: '/my',
 	name: '我的',
 	component: my,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 0,
+		keepAlive: true
 	}
 }, {
 	path: '/gallery',
 	name: '图片预览',
 	component: gallery,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 999,
+		keepAlive: true
 	}
 }, {
 	path: '/productDetails',
 	name: '产品详情',
 	component: productDetails,
 	meta:{
-		transitionIndex: 0
+		transitionIndex: 1,
+		keepAlive: true
 	}
 }];
 // 路由配置

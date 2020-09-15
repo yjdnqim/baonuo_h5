@@ -20,7 +20,7 @@
 		</div>
 		<div class="weui-panel__hd">品牌介绍</div>
 		<div class="img-list">
-			<img @click="onImageClick(item)" v-for="(item, index) in homeData.imgLsit" :key="index" v-bind:src="item" />
+			<img @click="onImageClick(item, index)" v-for="(item, index) in homeData.imgLsit" :key="index" v-bind:src="item" />
 		</div>
 	</div>
 </template>
@@ -28,6 +28,7 @@
 <script>
 	
 	import { Slider, SliderItem } from 'vue-easy-slider'
+	import { ImagePreview } from 'vant'
 
 	export default {
 		components: {
@@ -70,8 +71,11 @@
 			onBannerImageClick: function(item) {
 				location.href = item.LINK
 			},
-			onImageClick: function(item){
-				this.$router.push({path: "/gallery", query:{imgUrl: item} })
+			onImageClick: function(item, index){
+				ImagePreview({
+					images: this.homeData.imgLsit,
+					startPosition: index
+				})
 			},
 			onAddressClick: function() {
 				location.href = this.homeData.location.addressLink

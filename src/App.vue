@@ -2,7 +2,7 @@
 	<div id="app">
 		<keep-alive>
 			<transition :name="transitionName">
-				<router-view v-if="$route.meta.keepAlive"></router-view>
+				<router-view :class="{'child-view': transitionName!=''}" v-if="$route.meta.keepAlive"></router-view>
 			</transition>
 		</keep-alive>
 		<transition :name="transitionName">
@@ -15,6 +15,7 @@
 <script>
 	import config from "./config/config.js"
 	import VConsole from "vconsole"
+	import 'vant/lib/index.css'
 	export default {
 		name: 'app',
 		data: function() {

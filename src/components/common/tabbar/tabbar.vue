@@ -41,12 +41,12 @@
 						selectedIcon: require("@/assets/img/service_icon_on.png"),
 						targetPage: "service"
 					},
-					{
-						text: "我的",
-						icon: require("@/assets/img/user_icon.png"),
-						selectedIcon: require("@/assets/img/user_icon_on.png"),
-						targetPage: "my"
-					},
+					// {
+					// 	text: "我的",
+					// 	icon: require("@/assets/img/user_icon.png"),
+					// 	selectedIcon: require("@/assets/img/user_icon_on.png"),
+					// 	targetPage: "my"
+					// },
 				]
 			}
 		},

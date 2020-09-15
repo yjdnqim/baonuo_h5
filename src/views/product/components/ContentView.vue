@@ -44,11 +44,11 @@
 								</p>
 								<div>
 									<p class="name">{{item.NAME}}</p>
-									<p class="des">{{item.NAME}}</p>
+									<p class="des">{{item.REMARK}}</p>
 									<p class="price">{{item.PRICE}}</p>
 									<p class="originPrice">{{item.DISCOUNT_PRICE}}</p>
 									<div class="iconCartWrapper" @click.stop="addToCart(item)">
-										<SvgIcon iconClass="car" style="width:1.5rem;height:1.5rem"></SvgIcon>
+										<SvgIcon iconClass="car" style="width:1.5rem;height:1.5rem;display: none;"></SvgIcon>
 									</div>
 								</div>
 							</div>
@@ -199,7 +199,9 @@
 				this.$router.push({
 					path: "/productDetails",
 					// 给商品详情页面传递数据
-					query: goods
+					query: {
+						productId: goods.PRODUCT_ID
+					}
 				});
 			}
 		}
