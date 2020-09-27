@@ -9,6 +9,7 @@
 		<van-row class="case-image" v-if="caseData.caseImageList && caseData.caseImageList.length > 0">
 			<van-col style="padding: 5px;" v-for="(item, index) in caseData.caseImageList" :key="index" span="6"><img :src="item.IMAGE" @click="onCaseImageClick(index)"/></van-col>
 		</van-row>
+		<P class="case-address">安装地址：{{caseData.ADDRESS}}</P>
 	</div>
 </template>
 
@@ -93,5 +94,11 @@
 		width: 100%;
 		height: 80px;
 		background-position: center;
+	}
+	
+	.case-item .case-address{
+		color: #262626;
+		font-size: 12px;
+		padding: 5px;
 	}
 </style>

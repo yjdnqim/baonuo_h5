@@ -57,6 +57,9 @@
 				<van-goods-action-icon icon="shop-o" text="店铺" @click="onClickIcon" /> -->
 				<van-goods-action-button type="danger" text="联系商家" @click="onClickCallButton" />
 			</van-goods-action>
+			<van-popup v-model="showContact" position="bottom">
+				<contact :contactData="contactData" />
+			</van-popup>
 		</div>
 	</mainview>
 </template>
@@ -64,6 +67,7 @@
 <script>
 	import mainview from "@/components/common/mainview/mainview"
 	import caseItem from "@/views/product/components/CaseItem"
+	import contact from "@/views/service/components/contact"
 	import Vue from 'vue';
 	import {
 		ImagePreview,
@@ -71,7 +75,8 @@
 		Tabs,
 		GoodsAction,
 		GoodsActionIcon,
-		GoodsActionButton
+		GoodsActionButton,
+		Popup
 	} from 'vant'
 
 	Vue.use(Tab)
@@ -79,10 +84,12 @@
 	Vue.use(GoodsAction)
 	Vue.use(GoodsActionButton)
 	Vue.use(GoodsActionIcon)
+	Vue.use(Popup)
 	export default {
 		components: {
 			mainview,
-			caseItem
+			caseItem,
+			contact
 		},
 		data: function() {
 			return {
@@ -108,7 +115,9 @@
 					"SPEC": "[{\"name\":\"1\",\"value\":\"1\"}]"
 				},
 				caseList: [],
-				active: 0
+				active: 0,
+				showContact: false,
+				contactData: {}
 			}
 		},
 		computed: {
@@ -179,7 +188,21 @@
 			},
 			
 			onClickCallButton: function(){
-				
+				var $this = this
+				this.$jsonp({
+					loadingText: "请稍候...",
+					action: "/global/getValueForKey",
+					params: {
+						GLOBAL_KEY: "h5_contact_data"
+					},
+					success: function(result) {
+						$this.showContact = true
+						$this.contactData = result.data
+					},
+					error: function(error) {
+						$this.$toast(error.statusText)
+					}
+				})
 			}
 		}
 	}

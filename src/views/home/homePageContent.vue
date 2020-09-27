@@ -57,8 +57,10 @@
 			
 			this.$jsonp({
 				loadingText: "请稍候...",
-				action: "/global/getHomeData",
-				params: null,
+				action: "/global/getValueForKey",
+				params: {
+					GLOBAL_KEY: "h5_home_data"
+				},
 				success: function(result) {
 					$this.homeData = result.data
 				},
