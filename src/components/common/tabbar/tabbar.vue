@@ -36,7 +36,7 @@
 						targetPage: "case"
 					},
 					{
-						text: "客服",
+						text: "联系商家",
 						icon: require("@/assets/img/service_icon.png"),
 						selectedIcon: require("@/assets/img/service_icon_on.png"),
 						targetPage: "service"

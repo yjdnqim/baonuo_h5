@@ -26,29 +26,63 @@
 					<div class="weui-cell">
 						<div class="weui-cell__bd">
 							<table cellpadding="0" cellspacing="1" width="100%" border="0">
-								<tr v-for="(item, index) in productSpec" :key="index"><td style="width: 120px;">{{item.name}}</td><td>{{item.value}}</td></tr>
+								<tr v-for="(item, index) in productSpec" :key="index">
+									<td style="width: 120px;">{{item.name}}</td>
+									<td>{{item.value}}</td>
+								</tr>
 							</table>
 						</div>
 					</div>
 				</div>
-				<div class="weui-cells weui-cells_form">
-					<div class="weui-panel__hd">商品介绍</div>
-					<div class="img-list">
-						<img @click="onImageClick(item, index)" v-for="(item, index) in productImgs" :key="index" v-bind:src="item" />
-					</div>
-				</div>
+				<van-tabs style="background: white; margin-top: 10px; padding-top: 20px;" type="card">
+					<van-tab title="商品介绍">
+						<div class="img-list">
+							<img @click="onImageClick(item, index)" v-for="(item, index) in productImgs" :key="index" v-bind:src="item" />
+						</div>
+					</van-tab>
+					<van-tab title="案例">
+						<div class="case-list">
+							<p v-if="!caseList || caseList.length == 0" style="text-align: center; line-height: 30px; font-size: 14px; color: #8c8c8c;">暂无案例</p>
+							<div v-for="(caseItem, index) in caseList" :key="index">
+								<caseItem v-bind:caseData="caseItem"></caseItem>
+							</div>
+						</div>
+					</van-tab>
+				</van-tabs>
+				<div style="height: 50px;"></div>
 			</div>
+			<van-goods-action>
+				<!-- <van-goods-action-icon icon="chat-o" text="客服" @click="onClickIcon" />
+				<van-goods-action-icon icon="cart-o" text="购物车" @click="onClickIcon" />
+				<van-goods-action-icon icon="shop-o" text="店铺" @click="onClickIcon" /> -->
+				<van-goods-action-button type="danger" text="联系商家" @click="onClickCallButton" />
+			</van-goods-action>
 		</div>
 	</mainview>
 </template>
 
 <script>
 	import mainview from "@/components/common/mainview/mainview"
-	import { ImagePreview } from 'vant'
+	import caseItem from "@/views/product/components/CaseItem"
+	import Vue from 'vue';
+	import {
+		ImagePreview,
+		Tab,
+		Tabs,
+		GoodsAction,
+		GoodsActionIcon,
+		GoodsActionButton
+	} from 'vant'
 
+	Vue.use(Tab)
+	Vue.use(Tabs)
+	Vue.use(GoodsAction)
+	Vue.use(GoodsActionButton)
+	Vue.use(GoodsActionIcon)
 	export default {
 		components: {
-			mainview
+			mainview,
+			caseItem
 		},
 		data: function() {
 			return {
@@ -72,7 +106,9 @@
 					"CREATE_TIME": "2020-09-10 14:39:38",
 					"REMARK": "测试产品6测试产品6测试产品6",
 					"SPEC": "[{\"name\":\"1\",\"value\":\"1\"}]"
-				}
+				},
+				caseList: [],
+				active: 0
 			}
 		},
 		computed: {
@@ -82,7 +118,7 @@
 			priceDecimals: function() {
 				return "." + this.productDetails.PRICE.split(".")[1]
 			},
-			productSpec: function(){
+			productSpec: function() {
 				return JSON.parse(this.productDetails.SPEC)
 			}
 		},
@@ -92,6 +128,8 @@
 		mounted: function() {
 			var productId = this.$route.query.productId
 			var $this = this
+
+			//产品详细
 			this.$jsonp({
 				loadingText: "请稍候...",
 				action: "/product/getProductById",
@@ -102,7 +140,26 @@
 					$this.$refs.mainView.finishLoading()
 					if (result.code == 0) {
 						$this.productDetails = result.data
-						
+
+					}
+				},
+				error: function(error) {
+					$this.$refs.mainView.finishLoading()
+					$this.$toast(error.statusText)
+				}
+			})
+
+			//产品案例
+			this.$jsonp({
+				loadingText: "请稍候...",
+				action: "/case/getCaseListByProductId",
+				params: {
+					PRODUCT_ID: productId
+				},
+				success: function(result) {
+					$this.$refs.mainView.finishLoading()
+					if (result.code == 0) {
+						$this.caseList = result.data
 					}
 				},
 				error: function(error) {
@@ -114,12 +171,16 @@
 		},
 
 		methods: {
-			onImageClick: function(item, index){
+			onImageClick: function(item, index) {
 				ImagePreview({
 					images: this.productImgs,
 					startPosition: index
 				})
 			},
+			
+			onClickCallButton: function(){
+				
+			}
 		}
 	}
 </script>
@@ -133,7 +194,11 @@
 		width: 100%;
 		height: 100%;
 	}
-	
+
+	.img-list {
+		margin-top: 10px;
+	}
+
 	.img-list img {
 		display: block;
 	}

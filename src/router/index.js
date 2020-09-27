@@ -80,7 +80,7 @@ const routes = [{
 	}
 }, {
 	path: '/service',
-	name: '客服',
+	name: '联系商家',
 	component: service,
 	meta:{
 		transitionIndex: 0,
